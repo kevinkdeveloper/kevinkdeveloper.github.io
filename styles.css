@@ -1,0 +1,61 @@
+header {
+  background-color: #036e8b;
+  color: white;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+  font-size: 30px;
+}
+
+html, body {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  display: flex;
+  background-image: url(yallingup1.jpg);
+  background-size: cover;
+  background-repeat: no-repeat;
+  margin: 0;
+}
+
+.navigation {
+  display: flex;
+}
+
+.box1 {
+  position: relative
+  top: 50
+  left: 300
+  height: 10;
+  width: 200px;;
+}
+
+.box2 {
+  position: relative
+  height: 10;
+  width: 220px;;
+}
+
+.box3 {
+  position: relative
+  height: 10;
+  width: 200px;;
+}
+
+a {
+  color: white;
+  text-decoration: none;
+  font-size: 30px
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+a:active {
+  color: darkcyan;
+}
