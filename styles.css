@@ -20,8 +20,7 @@ body {
   background-attachment: fixed;
   background-repeat: no-repeat;
   font-family: 'Arial', sans-serif;
-  height: 100vh;
-  width: 100vh;
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -75,7 +74,6 @@ nav ul li a:hover {
 /* Hero Section */
 .hero {
   height: 100vh;
-  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -94,9 +92,7 @@ nav ul li a:hover {
 
 /* About Section */
 .about {
-  
-  height: 100vh;
-  width: 100vw;
+  width: 100%;
   padding: 100px;
   background-color: rgba(0, 0, 0, 0.50);
   text-align: left;
@@ -166,14 +162,14 @@ nav ul li a:hover {
 /* Projects Section */
 .projects {
   background-color: #f4f4f4;
-  width: 100vw;
+  width: 100%;
   display: flex;
   padding: 60px 20px;
   text-align: center;
 }
 
 .projects-content {
-  width: 100vw;
+  width: 100%;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
@@ -248,7 +244,7 @@ footer {
   padding: 20px;
   background-color: #333;
   color: white;
-  width: 100vw;
+  width: 100%;
   display: flex;
   padding: 60px 20px;
   text-align: center;
