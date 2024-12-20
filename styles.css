@@ -1,6 +1,9 @@
 /* General Styles */
 body {
   background-image: url(yallingup1.jpg);
+  background-size: cover;
+  background-attachment: fixed;
+  
   font-family: 'Arial', sans-serif;
   margin: 0;
   padding: 0;
@@ -15,6 +18,7 @@ a {
   text-decoration: none;
   color: inherit;
 }
+
 
 ul {
   list-style-type: none;
@@ -60,7 +64,6 @@ nav ul li a:hover {
 
 /* Hero Section */
 .hero {
-  background: url('yallingup1.jpg') no-repeat center center/cover;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -81,13 +84,20 @@ nav ul li a:hover {
 /* About Section */
 .about {
   padding: 60px 20px;
-  background-color: #f4f4f4;
+  background-color: rgba(0, 0, 0, 0.50);
   text-align: left;
+  color: white;
+
 }
 
 .about-content {
+
   max-width: 800px;
   margin: 0 auto;
+}
+
+.about p {
+  font-size: 16px;
 }
 
 .about h2 {
