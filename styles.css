@@ -7,7 +7,7 @@
 
 html, body {
   font-family: 'Arial', sans-serif;
-  scroll-behavior: smooth;
+  width: 100%;
   overflow-x: hidden;
 }
 
@@ -64,6 +64,7 @@ nav ul li a:hover {
 /* Hero Section */
 .hero {
   height: 100vh;
+  width: 100vw;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -80,10 +81,14 @@ nav ul li a:hover {
   font-size: 18px;
 }
 
-/* Sections */
-section {
-  padding: 50px 20px;
-  text-align: center;
+/* About Section */
+.about {
+  width: 100%;
+  padding: 100px;
+  background-color: rgba(0, 0, 0, 0.50);
+  text-align: left;
+  color: white;
+
 }
 
 .about, .skills, .projects, .contact {
@@ -106,7 +111,29 @@ section {
 
 .skill {
   background-color: #f4f4f4;
-  padding: 15px;
+  width: 100%;
+  display: flex;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+.projects-content {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.projects h2 {
+  font-size: 36px;
+  margin-bottom: 40px;
+  text-align: center;
+  width: 100vw;
+}
+
+.project {
+  background-color: white;
+  padding: 20px;
   border-radius: 8px;
   width: 200px;
 }
@@ -117,38 +144,10 @@ footer {
   padding: 15px;
   background-color: #333;
   color: white;
-}
-
-/* Responsive Styles */
-@media (max-width: 768px) {
-  nav .menu-toggle {
-    display: block;
-  }
-
-  nav ul {
-    display: none;
-    flex-direction: column;
-    background-color: #333;
-    position: absolute;
-    top: 100%;
-    left: 0;
-    width: 100%;
-    padding: 20px 0;
-  }
-
-  nav ul.active {
-    display: flex;
-  }
-
-  .hero h1 {
-    font-size: 28px;
-  }
-
-  .hero p {
-    font-size: 16px;
-  }
-
-  .skill {
-    width: 100%;
-  }
+  width: 100%;
+  display: flex;
+  padding: 60px 20px;
+  text-align: center;
+  justify-content: center;
+  
 }
