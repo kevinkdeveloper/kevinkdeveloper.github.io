@@ -19,7 +19,6 @@ body {
   background-position: center center;
   background-attachment: fixed;
   background-repeat: no-repeat;
-  display: flex;
   font-family: 'Arial', sans-serif;
   width: 100%;
   overflow-x: hidden;
