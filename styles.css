@@ -5,22 +5,8 @@
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
-  padding: 0;
-  scroll-behavior: smooth;
-  height: 100%;
-  width: 100%;
-}
-
 body {
-  background-image: url(yallingup1.jpg);
-  background-size: cover;
-  background-position: center center;
-  background-attachment: fixed;
-  background-repeat: no-repeat;
-  font-family: 'Arial', sans-serif;
-  width: 100%;
+  font-family: Arial, sans-serif;
   overflow-x: hidden;
 }
 
@@ -30,45 +16,91 @@ a {
 }
 
 ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  list-style: none;
 }
 
-nav {
-  position: fixed;
-  width: 100%;
+/* Navbar Styles */
+.navbar {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   padding: 20px;
   background-color: #333;
   color: white;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
 }
 
-nav .logo {
+.navbar .logo {
   font-size: 24px;
   font-weight: bold;
 }
 
-nav .job-title {
-  font-size: 16px;
+.navbar .job-title {
+  font-size: 14px;
 }
 
-nav ul {
-  padding: 15px;
+.navbar .nav-links {
   display: flex;
   gap: 20px;
 }
 
-nav ul li a {
+.navbar .nav-links li {
+  display: inline;
+}
+
+.navbar .nav-links a {
   color: white;
   padding: 8px 16px;
   transition: background-color 0.3s ease;
 }
 
-nav ul li a:hover {
+.navbar .nav-links a:hover {
   background-color: #555;
+}
 
+/* Hamburger Styles */
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: space-between;
+  width: 25px;
+  height: 20px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.hamburger span {
+  display: block;
+  width: 100%;
+  height: 3px;
+  background-color: white;
+  border-radius: 2px;
+}
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .navbar .nav-links {
+    display: none;
+    flex-direction: column;
+    background-color: #333;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+
+  .navbar .nav-links.active {
+    display: flex;
+  }
+
+  .hamburger {
+    display: flex;
+  }
 }
 
 /* Hero Section */
@@ -79,175 +111,25 @@ nav ul li a:hover {
   align-items: center;
   text-align: center;
   color: white;
+  background: url('yallingup1.jpg') no-repeat center center/cover;
 }
 
 .hero h1 {
   font-size: 48px;
-  margin-bottom: 10px;
 }
 
 .hero p {
   font-size: 24px;
 }
 
-/* About Section */
-.about {
-  width: 100%;
-  padding: 100px;
-  background-color: rgba(0, 0, 0, 0.50);
-  text-align: left;
-  color: white;
-
-}
-
-.about-content ul{
-  line-height: 2.3;
-  padding-left: 15px;
-}
-
-.about p {
-  font-size: 16px;
-  line-height: 2em;
-}
-
-.empty-row {
-  height: 20px;
-}
-
-.about h2 {
-  font-size: 30px;
-  margin-bottom: 20px;
-}
-
-/* Skills Section */
-.skills {
-  width: 100vw;
-  display: flex;
+/* Other Sections */
+section {
   padding: 60px 20px;
-  background-color: #fff;
-  text-align: center;
 }
 
-.skills-content {
-
-  margin: 0 auto;
-}
-
-.skills h2 {
-  margin-top: 50px;
-  font-size: 36px;
-  margin-bottom: 40px;
-}
-
-.skills-list {
-  display: flex;
-  gap: 40px;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.skill {
-  background-color: #f1f1f1;
-  padding: 20px;
-  border-radius: 8px;
-  text-align: center;
-  width: 200px;
-}
-
-.skill h3 {
-  font-size: 24px;
-  margin-bottom: 10px;
-}
-
-/* Projects Section */
-.projects {
-  background-color: #f4f4f4;
-  width: 100%;
-  display: flex;
-  padding: 60px 20px;
-  text-align: center;
-}
-
-.projects-content {
-  width: 100%;
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-}
-
-.projects h2 {
-  font-size: 36px;
-  margin-bottom: 40px;
-  text-align: center;
-  width: 100vw;
-}
-
-.project {
-  background-color: white;
-  padding: 20px;
-  border-radius: 8px;
-  margin: 10px;
-  width: 200px;
-
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-
-/* Contact Section */
-.contact {
-  padding: 60px 20px;
-  background-color: #fff;
-  text-align: center;
-  width: 100vw;
-  display: flex;
-  padding: 60px 20px;
-  text-align: center;
-  justify-content: center;
-}
-
-.contact h2 {
-  font-size: 36px;
-  margin-bottom: 20px;
-}
-
-.contact form {
-  max-width: 600px;
-  margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-}
-
-.contact input,
-.contact textarea {
-  padding: 10px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  font-size: 16px;
-}
-
-.contact button {
-  padding: 10px;
-  background-color: #333;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-.contact button:hover {
-  background-color: #555;
-}
-
-/* Footer */
 footer {
   text-align: center;
   padding: 20px;
   background-color: #333;
   color: white;
-  width: 100%;
-  display: flex;
-  padding: 60px 20px;
-  text-align: center;
-  justify-content: center;
-  
 }
