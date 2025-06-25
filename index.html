@@ -7,16 +7,18 @@
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-
-<!-- Home -->
-<div id="top"></div>
-
   <!-- Navbar -->
-  <nav>
-    <div class="logo"><a href = "#top">Kevin Koo</a>
-      <div class = "job-title"><a href = "#top">Software Developer</a></div>
+  <nav class="navbar">
+    <div class="logo">
+      <a href="#top">Kevin Koo</a>
+      <div class="job-title"><a href="#top">Software Developer</a></div>
     </div>
-    <ul>
+    <button class="hamburger" aria-label="Toggle navigation">
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+    <ul class="nav-links">
       <li><a href="#about">About</a></li>
       <li><a href="#skills">Skills</a></li>
       <li><a href="#projects">Projects</a></li>
@@ -32,94 +34,25 @@
     </div>
   </section>
 
-  <!-- About Section -->
+  <!-- Content Sections -->
   <section id="about" class="about">
-    <div class="about-content">
-      <h2>About Me</h2>
-      <p>Welcome! I’m Kevin, a self-taught Software Developer passionate about creating innovative solutions, designing intuitive user experiences, and solving complex problems. With a background in Mechanical Engineering and Finance, I thrive at the intersection of technology and creativity.</p>
-      <div class = "empty-row"></div>
-      <h3>My Journey</h3>
-      <p>I began my career in Mechanical Engineering before transitioning into Finance, driven by a curiosity to explore how systems work and how data drives decisions. Over the years, I’ve honed my skills in financial analysis, software development, and artificial intelligence.</p>
-      <p>Having worked with companies like Optiver, Wood Group, and Buru Energy, I’ve gained hands-on experience tackling real-world challenges in financial trading, engineering design, and project management.</p>
-      <div class = "empty-row"></div>
-      <h3>What I Do</h3>
-      <p>Currently, I specialise in:</p>
-      <ul>
-          <li> - Building AI-powered tools to analyse data.</li>
-          <li> - Developing financial models to inform investment strategies.</li>
-          <li> - Designing user-friendly softare systems for real-world applications.</li>
-      </ul>
-      <p>Beyond my professional work I'm passionate about volunteering, playing music, and beach volleyball.</p>
-      <div class = "empty-row"></div>
-      <h3>Let's Connect</h3>
-      <p>I'm always excited to collaborate on meaningful projects or discuss new ideas. Feel free to explore my portfolio, connect on LinkedIn, or drop me a message through my contact page.</p>
-    </div>
+    <h2>About Me</h2>
+    <p>Welcome! I’m Kevin, a self-taught Software Developer passionate about creating innovative solutions...</p>
   </section>
 
-  <!-- Skills Section -->
   <section id="skills" class="skills">
-    <div class="skills-content">
-      <h2>Skills</h2>
-      <div class="skills-list">
-        <div class="skill">
-          <h3>HTML</h3>
-          <p>Proficient in creating structured, semantic websites.</p>
-        </div>
-        <div class="skill">
-          <h3>CSS</h3>
-          <p>Experienced in building responsive and modern designs.</p>
-        </div>
-        <div class="skill">
-          <h3>JavaScript</h3>
-          <p>Skilled in interactive web elements and front-end frameworks.</p>
-        </div>
-        <div class="skill">
-          <h3>Python</h3>
-          <p>Skills and experience with data analysis in Python.</p>
-        </div>
-        <div class="skill">
-          <h3>SQL</h3>
-          <p>Experience with SQL queries for data cleaning and preparation.</p>
-        </div>
-      </div>
-    </div>
+    <h2>Skills</h2>
+    <p>Details about skills...</p>
   </section>
 
-  <!-- Projects Section -->
   <section id="projects" class="projects">
-    <div class="projects-content">
-      <h2>Projects</h2>
-
-  <!-- Project 1 -->
-      <a href="https://kevinkdeveloper.github.io/financial_planner" class="project-link">
-        <div class="project">
-          <h3>Project 1</h3>
-          <p>Created a web application for financial planning. Developed proficiency in HTML, CSS, and Javascript including Chart.js.</p>
-        </div>
-      </a>
-
-  <!-- Project 2 -->
-      <a href="https://kevinkdeveloper.github.io/financial_planner" class="project-link">
-        <div class="project">
-          <h3>Project 2</h3>
-          <p>Developed a financial planning web application. Developed proficiency in personal finance, HTML, CSS, and Javascript.</p>
-        </div>
-      </a>
-    </div>
+    <h2>Projects</h2>
+    <p>Details about projects...</p>
   </section>
 
-  <!-- Contact Section -->
   <section id="contact" class="contact">
-    <div class="contact-content">
-      <h2>Contact</h2>
-      <p>If you'd like to get in touch, feel free to reach out via email or through the contact form below.</p>
-      <form action="#">
-        <input type="text" placeholder="Your Name" required>
-        <input type="email" placeholder="Your Email" required>
-        <textarea placeholder="Your Message" required></textarea>
-        <button type="submit">Send Message</button>
-      </form>
-    </div>
+    <h2>Contact</h2>
+    <p>If you'd like to get in touch...</p>
   </section>
 
   <!-- Footer -->
