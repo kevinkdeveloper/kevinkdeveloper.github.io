@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Red or Black — Web Casino</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" />
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
+  <style>
+    :root {
+      --bg: #0f1220;
+      --card: #171a2b;
+      --muted: #9aa3b2;
+      --text: #e6e8ef;
+      --accent: #7c5cff;
+      --win: #2ecc71;
+      --loss: #e74c3c;
+      --border: #2a2f45;
+      --shadow: 0 10px 30px rgba(0,0,0,0.35);
+      --radius: 18px;
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Inter, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      background: radial-gradient(1200px 700px at 20% 20%, #14172a 0%, var(--bg) 60%);
+      color: var(--text);
+      display: grid;
+      place-items: center;
+      padding: 24px;
+    }
+    .app {
+      width: min(1100px, 100%);
+      display: grid;
+      gap: 16px;
+      grid-template-columns: 1.4fr 1fr;
+    }
+    @media (max-width: 900px) {
+      .app { grid-template-columns: 1fr; }
+    }
+    .card {
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 20px;
+    }
+    .header {
+      display: flex; align-items: center; justify-content: space-between; gap: 12px;
+    }
+    .title { font-size: 22px; font-weight: 700; letter-spacing: 0.3px; }
+    .balance {
+      font-size: 18px; font-weight: 700; padding: 8px 14px; border-radius: 999px;
+      background: rgba(124, 92, 255, 0.12); border: 1px solid rgba(124,92,255,0.35);
+    }
+    .controls { display: grid; grid-template-columns: 1fr auto auto auto; gap: 10px; margin-top: 16px; }
+    @media (max-width: 520px) {
+      .controls { grid-template-columns: 1fr 1fr; }
+    }
+    .input {
+      display: flex; align-items: center; gap: 10px; background: var(--card);
+      border: 1px solid var(--border); border-radius: 12px; padding: 10px 12px;
+    }
+    .input input {
+      all: unset; width: 100%; font-size: 16px; color: var(--text);
+    }
+    .btn {
+      appearance: none; border: 1px solid var(--border); background: var(--card);
+      color: var(--text); padding: 10px 14px; border-radius: 12px; font-weight: 700;
+      transition: transform .04s ease, background .2s ease, border-color .2s ease;
+      cursor: pointer; user-select: none;
+    }
+    .btn:hover { background: #1e2236; border-color: #3a4060; }
+    .btn:active { transform: translateY(1px) scale(0.99); }
+    .btn.red { border-color: rgba(231,76,60,0.6); }
+    .btn.black { border-color: rgba(230,230,230,0.25); }
+    .btn.reset { border-color: rgba(124,92,255,0.6); }
+    .status { margin-top: 16px; font-size: 16px; color: var(--muted); min-height: 24px; }
+    .status strong { color: var(--text); }
+    .grid {
+      display: grid; gap: 16px; grid-template-columns: 1fr 1fr;
+    }
+    @media (max-width: 900px) {
+      .grid { grid-template-columns: 1fr; }
+    }
+    .statline { display: flex; align-items: center; gap: 12px; margin-top: 8px; color: var(--muted); }
+    .pill { padding: 6px 10px; border-radius: 999px; border: 1px solid var(--border); background: var(--card); font-weight: 700; }
+    canvas { background: #111528; border: 1px solid var(--border); border-radius: 12px; }
+    footer { margin-top: 10px; color: var(--muted); font-size: 12px; text-align: right; }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <section class="card" style="grid-column: 1 / -1;">
+      <div class="header">
+        <div class="title">🎲 Red or Black</div>
+        <div class="balance" id="balanceLabel">Balance: $100</div>
+      </div>
+      <div class="controls">
+        <label class="input" title="Enter your bet amount">
+          <span>Bet $</span>
+          <input id="betInput" type="number" min="1" step="1" placeholder="e.g. 10" />
+        </label>
+        <button class="btn red" id="btnRed">❤️ Red</button>
+        <button class="btn black" id="btnBlack">🖤 Black</button>
+        <button class="btn reset" id="btnReset" title="Start over">↺ Reset</button>
+      </div>
+      <div class="status" id="status"></div>
+      <div class="statline">
+        <span class="pill" id="winsPill">Wins: 0</span>
+        <span class="pill" id="lossesPill">Losses: 0</span>
+        <span class="pill" id="roundsPill">Rounds: 0</span>
+      </div>
+    </section>
+
+    <section class="card">
+      <h3 style="margin:0 0 12px 0">Win/Loss Ratio</h3>
+      <canvas id="pieChart" height="260"></canvas>
+    </section>
+
+    <section class="card">
+      <h3 style="margin:0 0 12px 0">Bankroll Over Time</h3>
+      <canvas id="lineChart" height="260"></canvas>
+    </section>
+
+    <footer style="grid-column: 1 / -1;" class="card">
+      Tips: Enter a bet, click Red or Black. The game starts at $100. Charts update after each round. Reset clears stats.
+    </footer>
+  </main>
+
+  <script>
+    // --- Game State ---
+    const START_BALANCE = 100;
+    let balance = START_BALANCE;
+    let wins = 0;
+    let losses = 0;
+    let rounds = 0;
+    const bankrollHistory = [START_BALANCE]; // index aligned with rounds
+
+    // --- DOM Elements ---
+    const balanceLabel = document.getElementById('balanceLabel');
+    const betInput = document.getElementById('betInput');
+    const btnRed = document.getElementById('btnRed');
+    const btnBlack = document.getElementById('btnBlack');
+    const btnReset = document.getElementById('btnReset');
+    const statusEl = document.getElementById('status');
+    const winsPill = document.getElementById('winsPill');
+    const lossesPill = document.getElementById('lossesPill');
+    const roundsPill = document.getElementById('roundsPill');
+
+    // --- Charts ---
+    const pieCtx = document.getElementById('pieChart');
+    const lineCtx = document.getElementById('lineChart');
+
+    const pieChart = new Chart(pieCtx, {
+      type: 'pie',
+      data: {
+        labels: ['Wins', 'Losses'],
+        datasets: [{ data: [0, 0] }]
+      },
+      options: {
+        plugins: {
+          legend: { position: 'bottom', labels: { color: '#e6e8ef' } },
+          tooltip: { enabled: true }
+        }
+      }
+    });
+
+    const lineChart = new Chart(lineCtx, {
+      type: 'line',
+      data: {
+        labels: [0],
+        datasets: [{
+          label: 'Balance',
+          data: [START_BALANCE],
+          tension: 0.25,
+          pointRadius: 3,
+          fill: false
+        }]
+      },
+      options: {
+        scales: {
+          x: {
+            title: { display: true, text: 'Round', color: '#9aa3b2' },
+            ticks: { color: '#e6e8ef' },
+            grid: { color: 'rgba(255,255,255,0.05)' }
+          },
+          y: {
+            title: { display: true, text: 'Balance ($)', color: '#9aa3b2' },
+            ticks: { color: '#e6e8ef' },
+            grid: { color: 'rgba(255,255,255,0.05)' }
+          }
+        },
+        plugins: {
+          legend: { labels: { color: '#e6e8ef' } }
+        }
+      }
+    });
+
+    // --- Helpers ---
+    function updateUI(message = '') {
+      balanceLabel.textContent = `Balance: $${balance}`;
+      winsPill.textContent = `Wins: ${wins}`;
+      lossesPill.textContent = `Losses: ${losses}`;
+      roundsPill.textContent = `Rounds: ${rounds}`;
+      statusEl.innerHTML = message;
+
+      // Update charts
+      pieChart.data.datasets[0].data = [wins, losses];
+      pieChart.update();
+
+      lineChart.data.labels = Array.from({ length: rounds + 1 }, (_, i) => i);
+      lineChart.data.datasets[0].data = bankrollHistory.slice(0, rounds + 1);
+      lineChart.update();
+
+      // Disable play buttons if broke
+      const disabled = balance <= 0;
+      btnRed.disabled = disabled;
+      btnBlack.disabled = disabled;
+      btnRed.style.opacity = disabled ? 0.5 : 1;
+      btnBlack.style.opacity = disabled ? 0.5 : 1;
+    }
+
+    function parseBet() {
+      const v = Number(betInput.value);
+      if (!Number.isInteger(v) || v <= 0) {
+        throw new Error('Enter a valid whole-number bet greater than 0.');
+      }
+      if (v > balance) {
+        throw new Error('Bet cannot exceed your current balance.');
+      }
+      return v;
+    }
+
+    function play(choice) {
+      try {
+        const bet = parseBet();
+        const outcome = Math.random() < 0.5 ? 'red' : 'black';
+        rounds += 1;
+
+        if (choice === outcome) {
+          balance += bet;
+          wins += 1;
+          bankrollHistory[rounds] = balance;
+          updateUI(`The card is <strong>${outcome.toUpperCase()}</strong> — ✅ You win $${bet}!`);
+        } else {
+          balance -= bet;
+          losses += 1;
+          bankrollHistory[rounds] = balance;
+          const bust = balance <= 0 ? ' 💀 You\'re out of money! Game over.' : '';
+          updateUI(`The card is <strong>${outcome.toUpperCase()}</strong> — ❌ You lose $${bet}.${bust}`);
+        }
+      } catch (err) {
+        updateUI(`❌ ${err.message}`);
+      }
+    }
+
+    function resetGame() {
+      balance = START_BALANCE;
+      wins = 0; losses = 0; rounds = 0;
+      bankrollHistory.length = 1;
+      bankrollHistory[0] = START_BALANCE;
+      betInput.value = '';
+      updateUI('Game reset. Good luck!');
+    }
+
+    // --- Events ---
+    btnRed.addEventListener('click', () => play('red'));
+    btnBlack.addEventListener('click', () => play('black'));
+    btnReset.addEventListener('click', resetGame);
+    betInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        // Default to last clicked button color? Flip a coin for convenience
+        const defaultChoice = Math.random() < 0.5 ? 'red' : 'black';
+        play(defaultChoice);
+      }
+    });
+
+    // Initial render
+    updateUI('Enter a bet to begin.');
+  </script>
+</body>
+</html>
